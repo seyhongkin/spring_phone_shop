@@ -1,5 +1,7 @@
 package com.infinite.solution.phoneshop.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,7 @@ public class BrandController {
 	private BrandService brandservice;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO){
+	public ResponseEntity<?> create(@Valid @RequestBody BrandDTO brandDTO){
 		Brand brand = Mapper.toBrand(brandDTO);
 		brand = brandservice.create(brand);
 		return ResponseEntity.ok(Mapper.toBrandDTO(brand));
