@@ -1,6 +1,7 @@
 package com.infinite.solution.phoneshop.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class BrandController {
 		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(updatedBrand));
 	}
 	
+	/* NO NEED TO USE THIS
 	@GetMapping
 	public ResponseEntity<?> getBrands(){
 		List<BrandDTO> listBrands = brandservice.getBrands()
@@ -53,10 +55,22 @@ public class BrandController {
 			.collect(Collectors.toList());
 		return ResponseEntity.ok(listBrands);
 	}
+	*/
 	
-	@GetMapping("filter")
+	/* OLD VERSION
+	@GetMapping
 	public ResponseEntity<?> getBrands(@RequestParam("name") String name){
 		List<BrandDTO> listBrands = brandservice.getBrands(name)
+			.stream()
+			.map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
+			.collect(Collectors.toList());
+		return ResponseEntity.ok(listBrands); 
+	}
+	*/
+	
+	@GetMapping
+	public ResponseEntity<?> getBrands(@RequestParam Map<String, String> param){
+		List<BrandDTO> listBrands = brandservice.getBrands(param)
 			.stream()
 			.map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
 			.collect(Collectors.toList());
