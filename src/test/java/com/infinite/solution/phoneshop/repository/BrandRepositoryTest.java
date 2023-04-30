@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import com.infinite.solution.phoneshop.entity.Brand;
 
 @DataJpaTest
-public class TestBrandRepository {
+public class BrandRepositoryTest {
 	@Autowired
 	private BrandRepository brandRepository;
 	

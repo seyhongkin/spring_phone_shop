@@ -18,10 +18,13 @@ import com.infinite.solution.phoneshop.service.util.PageUtil;
 import com.infinite.solution.phoneshop.spec.BrandFilter;
 import com.infinite.solution.phoneshop.spec.BrandSpec;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService {
 	@Autowired
-	private BrandRepository brandRepository;
+	private final BrandRepository brandRepository;
 
 	@Override
 	public Brand create(Brand brand) {
