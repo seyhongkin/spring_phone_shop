@@ -1,28 +1,28 @@
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/phoneshop
-#    username: admin
-#    password: admin
-#  jpa:
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect
-#    hibernate:
-#      ddl-auto: update
-     
-
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password: 
-  h2:
-    console:
-      enabled: true
+    url: jdbc:postgresql://localhost:5432/phoneshop
+    username: admin
+    password: admin
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+     
+
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:mydb
+#    username: sa
+#    password: 
+#  h2:
+#    console:
+#      enabled: true
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.H2Dialect
+#    hibernate:
+#      ddl-auto: create
      
