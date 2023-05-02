@@ -2,7 +2,9 @@ package com.infinite.solution.phoneshop.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.infinite.solution.phoneshop.dto.ModelDTO;
 import com.infinite.solution.phoneshop.entity.Model;
+import com.infinite.solution.phoneshop.exceptions.ResourceNotFoundException;
 import com.infinite.solution.phoneshop.repository.ModelRepository;
 import com.infinite.solution.phoneshop.service.ModelService;
 
@@ -18,4 +20,25 @@ public class ModelServiceImpl implements ModelService{
 		return modelRepository.save(model);
 	}
 
+	@Override
+	public Model getById(Integer id) {
+		return modelRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Model", id));
+	}
+
+	@Override
+	public Model update(Integer id, ModelDTO modelDto) {
+		Model model = getById(id);
+		model.setName(modelDto.getName());
+		model.setId(modelDto.getBrandId());
+		return modelRepository.save(model);
+	}
+
+	@Override
+	public void remove(Integer id) {
+		Model model = getById(id);
+		modelRepository.delete(model);
+	}
+	
+	
 }

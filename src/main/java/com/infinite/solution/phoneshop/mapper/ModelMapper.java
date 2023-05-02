@@ -16,6 +16,9 @@ public interface ModelMapper {
 	@Mapping(target = "brand", source = "brandId")
 	Model toModel(ModelDTO dto);
 	
+	@Mapping(target = "brandId", source = "model.brand.id")
+	ModelDTO toModelDto(Model model);
+	
 	/*
 	default Brand toBrand(Integer brId) {
 		Brand brand = new Brand();
