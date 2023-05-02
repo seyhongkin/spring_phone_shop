@@ -7,17 +7,20 @@ import org.mapstruct.factory.Mappers;
 import com.infinite.solution.phoneshop.dto.ModelDTO;
 import com.infinite.solution.phoneshop.entity.Brand;
 import com.infinite.solution.phoneshop.entity.Model;
+import com.infinite.solution.phoneshop.service.BrandService;
 
-@Mapper
+@Mapper(uses = {BrandService.class}, componentModel = "spring")
 public interface ModelMapper {
 	ModelMapper INSTANCE = Mappers.getMapper(ModelMapper.class);
 	
 	@Mapping(target = "brand", source = "brandId")
 	Model toModel(ModelDTO dto);
 	
+	/*
 	default Brand toBrand(Integer brId) {
 		Brand brand = new Brand();
 		brand.setId(brId);
 		return brand;
 	}
+	*/
 }
