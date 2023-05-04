@@ -1,5 +1,7 @@
 package com.infinite.solution.phoneshop.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.infinite.solution.phoneshop.dto.ModelDTO;
@@ -26,6 +28,7 @@ public class ModelServiceImpl implements ModelService{
 				.orElseThrow(() -> new ResourceNotFoundException("Model", id));
 	}
 
+	/* @TODO Fix this
 	@Override
 	public Model update(Integer id, ModelDTO modelDto) {
 		Model model = getById(id);
@@ -38,6 +41,11 @@ public class ModelServiceImpl implements ModelService{
 	public void remove(Integer id) {
 		Model model = getById(id);
 		modelRepository.delete(model);
+	}
+	*/
+	@Override
+	public List<Model> getModelsByBrandId(Integer brandId) {
+		return modelRepository.findByBrandId(brandId);
 	}
 	
 	
