@@ -5,7 +5,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.infinite.solution.phoneshop.dto.ModelDTO;
-import com.infinite.solution.phoneshop.entity.Brand;
 import com.infinite.solution.phoneshop.entity.Model;
 import com.infinite.solution.phoneshop.service.BrandService;
 

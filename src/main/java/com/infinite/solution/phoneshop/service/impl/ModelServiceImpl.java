@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.infinite.solution.phoneshop.dto.ModelDTO;
 import com.infinite.solution.phoneshop.entity.Model;
 import com.infinite.solution.phoneshop.exceptions.ResourceNotFoundException;
 import com.infinite.solution.phoneshop.repository.ModelRepository;
