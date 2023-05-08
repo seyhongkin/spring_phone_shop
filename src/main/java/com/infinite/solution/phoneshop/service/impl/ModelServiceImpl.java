@@ -22,7 +22,7 @@ public class ModelServiceImpl implements ModelService{
 	}
 
 	@Override
-	public Model getById(Integer id) {
+	public Model getById(Long id) {
 		return modelRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Model", id));
 	}
@@ -43,7 +43,7 @@ public class ModelServiceImpl implements ModelService{
 	}
 	*/
 	@Override
-	public List<Model> getModelsByBrandId(Integer brandId) {
+	public List<Model> getModelsByBrandId(Long brandId) {
 		return modelRepository.findByBrandId(brandId);
 	}
 	

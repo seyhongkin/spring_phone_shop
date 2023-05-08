@@ -9,8 +9,8 @@ import com.infinite.solution.phoneshop.entity.Brand;
 
 public interface BrandService {
 	Brand create(Brand brand);
-	Brand getById(Integer Id);
-	Brand update(Integer Id, Brand brand);
+	Brand getById(Long Id);
+	Brand update(Long Id, Brand brand);
 	//List<Brand> getBrands(); NO NEED TO USE THIS
 	List<Brand> getBrands(String name);
 	//List<Brand> getBrands(Map<String, String> param);

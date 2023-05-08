@@ -30,7 +30,7 @@ public class ModelController {
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<?> getById(@PathVariable("id") Integer modelId){
+	public ResponseEntity<?> getById(@PathVariable("id") Long modelId){
 		Model model = modelService.getById(modelId);
 		return ResponseEntity.ok(modelMapper.toModelDto(model));
 	}

@@ -7,10 +7,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import com.infinite.solution.phoneshop.entity.Brand;
-import com.infinite.solution.phoneshop.spec.BrandSpec;
 
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, Integer>, JpaSpecificationExecutor<Brand>{
+public interface BrandRepository extends JpaRepository<Brand, Long>, JpaSpecificationExecutor<Brand>{
 	
 	List<Brand> findByNameContainingIgnoreCase(String name);
 }

@@ -1,3 +1,4 @@
+package com.infinite.solution.phoneshop.service;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -65,11 +66,11 @@ public class BrandServiceTest {
 		// given
 		Brand brand = new Brand();
 		brand.setName("Samsung");
-		brand.setId(1);
+		brand.setId(1L);
 
 		// when
-		when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
-		Brand brandReturn = brandService.getById(1);
+		when(brandRepository.findById(1L)).thenReturn(Optional.of(brand));
+		Brand brandReturn = brandService.getById(1L);
 
 		// then
 		assertEquals(1, brandReturn.getId());
@@ -81,10 +82,10 @@ public class BrandServiceTest {
 		// given
 
 		// when
-		when(brandRepository.findById(2)).thenReturn(Optional.empty());
+		when(brandRepository.findById(2L)).thenReturn(Optional.empty());
 
 		//assertThrows(ResourceNotFoundException.class, ()->brandService.getById(2));
-		assertThatThrownBy(() -> brandService.getById(2))
+		assertThatThrownBy(() -> brandService.getById(2L))
 				.isInstanceOf(ResourceNotFoundException.class)
 				//.hasMessage(String.format("%s_id = %d is not found", "Brand", 2));
 				.hasMessageEndingWith("not found");
