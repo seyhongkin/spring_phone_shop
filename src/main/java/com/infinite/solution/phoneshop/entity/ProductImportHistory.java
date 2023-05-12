@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
 import lombok.Data;
 
 @Data
@@ -24,6 +27,7 @@ public class ProductImportHistory {
 	private Long id;
 	
 	@Column(name = "import_date")
+	@CreationTimestamp
 	private LocalDateTime importDate;
 	
 	@Column(name = "import_unit")
