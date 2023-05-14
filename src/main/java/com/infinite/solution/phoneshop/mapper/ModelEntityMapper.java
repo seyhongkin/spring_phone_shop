@@ -13,6 +13,7 @@ public interface ModelEntityMapper {
 	ModelEntityMapper INSTANCE = Mappers.getMapper(ModelEntityMapper.class);
 	
 	@Mapping(target = "brand", source = "brandId")
+	@Mapping(target = "id", ignore = true)
 	Model toModel(ModelDTO dto);
 	
 	@Mapping(target = "brandId", source = "model.brand.id")

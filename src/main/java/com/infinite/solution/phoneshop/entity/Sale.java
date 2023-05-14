@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Data;
 
 @Data
@@ -20,6 +22,7 @@ public class Sale {
 	@Column(name = "sale_id")
 	private Long id;
 	
+	@CreationTimestamp
 	@Column(name = "sale_date")
 	private LocalDateTime saleDate;
 }

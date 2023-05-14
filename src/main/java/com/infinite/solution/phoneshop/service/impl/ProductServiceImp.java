@@ -1,10 +1,14 @@
 package com.infinite.solution.phoneshop.service.impl;
 
+import java.math.BigDecimal;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.infinite.solution.phoneshop.dto.ProductImportDTO;
 import com.infinite.solution.phoneshop.entity.Product;
 import com.infinite.solution.phoneshop.entity.ProductImportHistory;
+import com.infinite.solution.phoneshop.exceptions.ApiServiceException;
 import com.infinite.solution.phoneshop.exceptions.ResourceNotFoundException;
 import com.infinite.solution.phoneshop.mapper.ProductMapper;
 import com.infinite.solution.phoneshop.repository.ProductImportRepository;
@@ -52,5 +56,13 @@ public class ProductServiceImp implements ProductService {
 		productImportRepository.save(importHistory);
 	}
 
-
+	@Override
+	public void setSalePrice(Long productId, BigDecimal salePrice) {
+		Product product = getById(productId);
+		if(product.getAvailableUnit() == 0) {
+			throw new ApiServiceException(HttpStatus.BAD_REQUEST, "Can not set sale price when it out of stock");
+		}
+		product.setSalePrice(salePrice);
+		productRepository.save(product);
+	}
 }

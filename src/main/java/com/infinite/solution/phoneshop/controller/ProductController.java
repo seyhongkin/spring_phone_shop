@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infinite.solution.phoneshop.dto.PriceDTO;
 import com.infinite.solution.phoneshop.dto.ProductDTO;
 import com.infinite.solution.phoneshop.dto.ProductImportDTO;
 import com.infinite.solution.phoneshop.entity.Product;
@@ -45,5 +45,11 @@ public class ProductController {
 	public ResponseEntity<?> getById(@PathVariable("id") Long productId){
 		Product product = productService.getById(productId);
 		return ResponseEntity.ok(product);
+	}
+	
+	@PostMapping("{pid}/price")
+	public ResponseEntity<?> setSalePrice(@PathVariable Long pid, @RequestBody PriceDTO priceDTO){
+		productService.setSalePrice(pid, priceDTO.getSalePrice());
+		return ResponseEntity.ok().build();
 	}
 }
