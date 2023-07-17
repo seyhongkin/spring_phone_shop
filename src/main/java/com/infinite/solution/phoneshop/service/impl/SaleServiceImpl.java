@@ -3,6 +3,8 @@ package com.infinite.solution.phoneshop.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import com.infinite.solution.phoneshop.entity.Product;
 import com.infinite.solution.phoneshop.entity.Sale;
 import com.infinite.solution.phoneshop.entity.SaleDetail;
 import com.infinite.solution.phoneshop.exceptions.ApiServiceException;
+import com.infinite.solution.phoneshop.exceptions.ResourceNotFoundException;
 import com.infinite.solution.phoneshop.repository.ProductRepository;
 import com.infinite.solution.phoneshop.repository.SaleDetailRepository;
 import com.infinite.solution.phoneshop.repository.SaleRepository;
@@ -45,11 +48,12 @@ public class SaleServiceImpl implements SaleService {
 	private void save(SaleDTO saleDTO, List<Product> products) {
 		// save sale
 		Sale sale = new Sale();
+		sale.setActive(true);
 		saleRepository.save(sale);
 
 		Map<Long, Integer> saleUnits = saleDTO.getProducts().stream()
 				.collect(Collectors.toMap(ProductSaleDTO::getProductId, ProductSaleDTO::getSaleUnit));
-		
+
 		// save sale details
 		products.stream().forEach(p -> {
 			SaleDetail detail = new SaleDetail();
@@ -69,7 +73,7 @@ public class SaleServiceImpl implements SaleService {
 				throw new ApiServiceException(HttpStatus.BAD_REQUEST,
 						"'%s' has only %d left".formatted(product.getName(), product.getAvailableUnit()));
 			}
-			if(product.getSalePrice() == null) {
+			if (product.getSalePrice() == null) {
 				throw new ApiServiceException(HttpStatus.BAD_REQUEST,
 						"'%s' has not set sale price yet".formatted(product.getName()));
 			}
@@ -88,6 +92,42 @@ public class SaleServiceImpl implements SaleService {
 			p.setAvailableUnit(availableUnit);
 			productRepository.save(p);
 		});
+	}
+
+	@Override
+	public Boolean cancelSale(Long saleId) {
+		Sale sale = getById(saleId);
+//		if(!(sale.getActive() == null && sale.getActive() == true)) {
+//			return false;
+//		}
+		//@ERROR When active is null
+		if(!sale.getActive()) {
+			return false;
+		}
+		sale.setActive(false);
+		saleRepository.save(sale);
+		
+		//get sale product
+		List<SaleDetail> saleDetails = saleDetailRepository.findBySaleId(saleId);
+		List<Long> productIds = saleDetails.stream().map(saleDetail -> saleDetail.getProduct().getId()).toList();
+		List<Product> products = productRepository.findAllById(productIds);
+		
+		Map<Long, Product> productMaps = products.stream()
+				.collect(Collectors.toMap(Product::getId, Function.identity()));
+		
+		//update stock
+		saleDetails.forEach(sd -> {
+			Product product = productMaps.get(sd.getProduct().getId());
+			product.setAvailableUnit(product.getAvailableUnit() + sd.getUnit());
+			productRepository.save(product);
+		});
+		return true;
+	}
+
+	@Override
+	public Sale getById(Long saleId) {
+		return saleRepository.findById(saleId)
+				.orElseThrow(() -> new ResourceNotFoundException("sale", saleId));
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.infinite.solution.phoneshop.mapper;
 
+import java.math.BigDecimal;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -25,6 +27,11 @@ public interface ProductMapper {
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "importDate", ignore = true)
 	ProductImportHistory toProductImportHistory(ProductImportDTO importDTO, Product product);
+	
+	@Mapping(target = "productId", source = "product.id")
+	ProductImportDTO toProductImportDTO(Product product, Long importUnit, BigDecimal pricePerUnit);
+	
+	
 	
 //	@Mapping(target = "modelId", source = "model.id")
 //	@Mapping(target = "colorId", source = "color.id")

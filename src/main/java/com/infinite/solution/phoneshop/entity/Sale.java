@@ -25,4 +25,7 @@ public class Sale {
 	@CreationTimestamp
 	@Column(name = "sale_date")
 	private LocalDateTime saleDate;
+	
+	@Column(name = "is_active")
+	private Boolean active;
 }

@@ -1,13 +1,10 @@
 package com.infinite.solution.phoneshop.service;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Executable;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.infinite.solution.phoneshop.entity.Brand;
 import com.infinite.solution.phoneshop.exceptions.ResourceNotFoundException;
 import com.infinite.solution.phoneshop.repository.BrandRepository;
-import com.infinite.solution.phoneshop.service.BrandService;
 import com.infinite.solution.phoneshop.service.impl.BrandServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
