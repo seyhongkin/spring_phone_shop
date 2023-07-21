@@ -24,4 +24,11 @@ public class ReportController {
 			@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate){
 		return ResponseEntity.ok(reportService.getProductSold(startDate, endDate));
 	}
+	
+	//@NOTOK
+	@GetMapping("v2/{startDate}/{endDate}")
+	public ResponseEntity<?> productReport(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate") LocalDate startDate,
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate){
+		return ResponseEntity.ok(reportService.getProductSoldReport(startDate, endDate));
+	}
 }
