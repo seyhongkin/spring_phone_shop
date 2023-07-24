@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.infinite.solution.phoneshop.dto.ExpenseReportDTO;
 import com.infinite.solution.phoneshop.dto.ProductReportDTO;
 import com.infinite.solution.phoneshop.projection.ProductSold;
 
@@ -12,4 +13,5 @@ import com.infinite.solution.phoneshop.projection.ProductSold;
 public interface ReportService {
 	List<ProductSold> getProductSold(LocalDate startDate, LocalDate endDate);
 	List<ProductReportDTO> getProductSoldReport(LocalDate startDate, LocalDate endDate);
+	List<ExpenseReportDTO> getExpenseReport(LocalDate startDate, LocalDate endDate);
 }
