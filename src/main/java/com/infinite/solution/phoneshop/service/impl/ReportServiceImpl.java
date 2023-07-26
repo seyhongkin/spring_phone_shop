@@ -131,6 +131,8 @@ public class ReportServiceImpl implements ReportService {
 			expenseReportDTOs.add(expenseReportDTO);
 		}
 		
+		expenseReportDTOs.sort((a,b)-> (int)(a.getProductId() - b.getProductId()));
+		
 		return expenseReportDTOs;
 	}
 }
