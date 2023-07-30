@@ -1,5 +1,7 @@
 package com.infinite.solution.phoneshop.controller;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,7 @@ public class ModelController {
 	private final ModelService modelService;
 	private final ModelEntityMapper modelMapper;
 	
+	@RolesAllowed("ADMIN")
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody ModelDTO dto){
 		Model model = modelMapper.toModel(dto);
