@@ -3,6 +3,7 @@ package com.infinite.solution.phoneshop.controller;
 import javax.annotation.security.RolesAllowed;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ public class ModelController {
 		return ResponseEntity.ok(modelMapper.toModelDto(model));
 	}
 	
+	@PreAuthorize("hasAuthority('model:read')")
 	@GetMapping("{id}")
 	public ResponseEntity<?> getById(@PathVariable("id") Long modelId){
 		Model model = modelService.getById(modelId);
