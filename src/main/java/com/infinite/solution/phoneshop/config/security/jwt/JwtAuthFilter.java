@@ -3,6 +3,7 @@ package com.infinite.solution.phoneshop.config.security.jwt;
 import java.io.IOException;
 import java.security.Key;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import javax.management.RuntimeErrorException;
@@ -53,7 +54,7 @@ public class JwtAuthFilter extends UsernamePasswordAuthenticationFilter {
 			.setSubject(authResult.getName())
 			.claim("authorities", authResult.getAuthorities())
 			.setIssuedAt(new Date())
-			.setExpiration(java.sql.Date.valueOf(LocalDate.now().plusWeeks(1)))
+			.setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(1)))
 			.setIssuer("infinite-phoneshop.com")
 			.signWith(Keys.hmacShaKeyFor(signKey.getBytes()))
 			.compact();
