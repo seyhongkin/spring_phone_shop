@@ -10,6 +10,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -29,6 +31,9 @@ public class BrandServiceTest {
 	private void setUpService() {
 		brandService = new BrandServiceImpl(brandRepository);
 	}
+	
+	@Captor
+	private ArgumentCaptor<Brand> argumentCaptor;
 
 	/*
 	 * @Test public void testCreate() { //given Brand brand = new Brand();
@@ -86,5 +91,22 @@ public class BrandServiceTest {
 				//.hasMessage(String.format("%s_id = %d is not found", "Brand", 2));
 				.hasMessageEndingWith("not found");
 		// then
+	}
+	
+	@Test
+	public void testUpdate() {
+		//given
+		Brand givenBrand = new Brand(1L, "Oppo");
+		Brand updateTo = new Brand(1L, "OPPO");
+		
+		//when
+		when(brandRepository.findById(1L)).thenReturn(Optional.ofNullable(givenBrand));
+		brandService.update(1l, updateTo);
+		
+		//then
+		verify(brandRepository, times(1)).findById(1L);
+		verify(brandRepository, times(1)).save(argumentCaptor.capture());
+		assertEquals("OPPO", argumentCaptor.getValue().getName());
+		assertEquals(1l, argumentCaptor.getValue().getId());
 	}
 }
