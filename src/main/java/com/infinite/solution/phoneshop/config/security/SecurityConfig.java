@@ -31,11 +31,15 @@ public class SecurityConfig{
 	
 	private AuthenticationConfiguration authenticationConfiguration;
 	
+	@Autowired
+	private FilterChainExceptionHandler filterChainExceptionHandler;
+	
 	
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.addFilter(new JwtAuthFilter(authenticationManager(authenticationConfiguration)))
+			.addFilterBefore(filterChainExceptionHandler, JwtAuthFilter.class)
 			.addFilterAfter(new TokenVerifyFilter(), JwtAuthFilter.class)
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
